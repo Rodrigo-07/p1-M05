@@ -92,7 +92,7 @@ def deletar():
         # Deletar o caminho com o id passado
         dbCaminhos.remove(doc_ids=[int(id)])
         
-        return render_template('Deletar.html', mensagem='Caminho com id:' + str(id) +  'deletado com sucesso')
+        return render_template('Deletar.html', mensagem='Caminho com id: ' + str(id) +  ' deletado com sucesso')
 
 # Tendo o run não precisamos passar os parametrso do servidor pelo terminal basta rodar o arquivo
 if __name__ == "__main__":
