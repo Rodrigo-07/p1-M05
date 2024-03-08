@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<htm>
+    <head>
+        <title>Página de buscar caminho</title>
+    </head>
+    <body>
+        <h1>Coloque o id do caminho</h1>
+        <div>
+            <form action="/pegar_caminho" method="post">
+                <input type="number" name="id" placeholder="ID">
+                <button type="submit">Enviar</button>
+            </form>
+
+            {{ caminho }}
+        </div>
+    </body>
+</htm>
