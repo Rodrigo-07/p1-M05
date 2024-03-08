@@ -10,6 +10,10 @@ dbCaminhos = TinyDB('src/caminhos.json', indent=4)
 # Configuração para recarregar os templates (Páginas HTML) automaticamente
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 
+@app.route("/", methods=['GET'])
+def index():
+    return render_template('Index.html')
+
 # Rota para a página de cadastrar um novo caminho
 @app.route("/novo", methods=['GET', 'POST'])
 def novo():
@@ -50,8 +54,15 @@ def pegar_caminho():
 def listar_caminhos():
     # Quero listar caminhos que estão no banco de dados
     caminhos = dbCaminhos.all()
+    # Pegar o id de cada caminho
+    resposta_caminhos = []
+
+    for caminho in caminhos:
+        caminho['id'] = caminho.doc_id
+        resposta_caminhos.append(caminho)
+
     
-    return render_template('ListarCaminhos.html', caminhos=caminhos)
+    return render_template('ListarCaminhos.html', caminhos=resposta_caminhos)
 
 # Rota para a página de atualizar um caminho
 @app.route("/atualizar", methods=['GET', 'POST'])
@@ -68,7 +79,7 @@ def atualizar():
         # Atualizar o caminho com o id passado
         dbCaminhos.update({'x': x, 'y': y, 'z': z, 'r': r}, doc_ids=[int(id)]) # Estou usando o doc_ids para atualizar o caminho com o id passado
 
-        return render_template('atualizar.html', mensagem='Caminho com id:' + str(id) +  'atualizado com sucesso')
+        return render_template('atualizar.html', mensagem='Caminho com id: ' + str(id) +  ' atualizado com sucesso')
     
 # Rota para a página de deletar um caminho
 @app.route("/deletar", methods=['GET', 'POST'])
