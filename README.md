@@ -11,3 +11,4 @@ O seu sistema deve, obrigatoriamente, utilizar o TinyDB para armazenar os dados.
 ●      /atualizar: atualiza o caminho cujo id foi fornecido
 
 ●      /deletar: deleta o caminho com o id fornecido
+

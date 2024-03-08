@@ -22,6 +22,8 @@ def novo():
 
         dbCaminhos.insert({'x': x, 'y': y, 'z': z, 'r': r})
 
+        return render_template('Cadastro.html', mensagem='Caminho cadastrado com sucesso')
+
 
 @app.route("/pegar_caminho", methods=['GET', 'POST'])
 def pegar_caminho():
@@ -36,10 +38,12 @@ def pegar_caminho():
             return render_template('PegarCaminho.html', caminho='Caminho não encontrado')
         else:
             return render_template('PegarCaminho.html', caminho=caminho)
-    
+
 @app.route("/listar_caminhos", methods=['GET'])
 def listar_caminhos():
+    # Quero listar os id e os caminhos
     caminhos = dbCaminhos.all()
+    
     return render_template('ListarCaminhos.html', caminhos=caminhos)
 
 @app.route("/atualizar", methods=['GET', 'POST'])
@@ -55,7 +59,7 @@ def atualizar():
 
         dbCaminhos.update({'x': x, 'y': y, 'z': z, 'r': r}, doc_ids=[int(id)])
 
-        return redirect(url_for('listar_caminhos'))
+        return render_template('atualizar.html', mensagem='Caminho com id:' + str(id) +  'atualizado com sucesso')
     
 @app.route("/deletar", methods=['GET', 'POST'])
 def deletar():
