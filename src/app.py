@@ -37,11 +37,36 @@ def pegar_caminho():
         else:
             return render_template('PegarCaminho.html', caminho=caminho)
     
+@app.route("/listar_caminhos", methods=['GET'])
+def listar_caminhos():
+    caminhos = dbCaminhos.all()
+    return render_template('ListarCaminhos.html', caminhos=caminhos)
 
+@app.route("/atualizar", methods=['GET', 'POST'])
+def atualizar():
+    if request.method == 'GET':
+        return render_template('Atualizar.html')
+    elif request.method == 'POST':
+        id = request.form.get('id')
+        x = request.form.get('X')
+        y = request.form.get('Y')
+        z = request.form.get('Z')
+        r = request.form.get('R')
 
+        dbCaminhos.update({'x': x, 'y': y, 'z': z, 'r': r}, doc_ids=[int(id)])
 
-
-
+        return redirect(url_for('listar_caminhos'))
+    
+@app.route("/deletar", methods=['GET', 'POST'])
+def deletar():
+    if request.method == 'GET':
+        return render_template('Deletar.html')
+    elif request.method == 'POST':
+        id = request.form.get('id')
+        
+        dbCaminhos.remove(doc_ids=[int(id)])
+        
+        return render_template('Deletar.html', mensagem='Caminho com id:' + str(id) +  'deletado com sucesso')
 
 # Tendo o run não precisamos passar os parametrso do servidor pelo terminal basta rodar o arquivo
 if __name__ == "__main__":
